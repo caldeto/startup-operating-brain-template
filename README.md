@@ -1,99 +1,83 @@
----
-type: operating-brain
-status: in-progress
-area: company
-owner: ceo
-created_at: 2026-06-08
-last_verified: 2026-06-08
-source_of_truth:
-  - obsidian
-  - github
-  - gcp
-confidence: high
-layer: operation
----
+# Startup Operating Brain Template
 
-# BiBound Operating Brain
+An open-source Obsidian + GitHub operating system for solo founders and small AI-native startup teams.
 
-Este vault es el cerebro operativo de BiBound.
+It helps founders maintain one living workspace for CEO strategy, CTO decisions, product planning, engineering execution, security, fundraising, metrics, market research, and AI-agent workflows.
 
-Su objetivo no es guardar mas notas. Su objetivo es mantener claridad, trazabilidad y utilidad para tomar decisiones sobre producto, tecnologia, negocio, seguridad y produccion.
+The template is designed for teams using tools like Codex, Claude Code, Conductor, OpenCode, GitHub, and local test gates. It prevents context loss by separating ideas, decisions, evidence, production truth, and AI-generated outputs.
 
-## Constitucion
+## Who It Is For
 
-```text
-GitHub = verdad tecnica ejecutable
-GCP = verdad de produccion/runtime
-Obsidian = cerebro estrategico, operativo y contextual
-Codex/Claude/Conductor = agentes que ayudan a mantener, verificar y conectar
+- Solo founders who need a versioned CEO/CTO operating brain.
+- Small AI-native teams that use coding agents heavily.
+- OSS maintainers who want repeatable evidence and review workflows.
+- Teams that need Obsidian for thinking and GitHub for review history.
+
+## What It Includes
+
+- CEO, CTO, product, engineering, production, security, fundraising, metric, and research areas.
+- Agent instructions, prompts, task packets, context packs, and run logs.
+- Evidence registry and source-of-truth model.
+- Obsidian Canvas maps and reusable note templates.
+- Local validators for frontmatter, Canvas JSON, links, secrets, and large files.
+- Public docs for founder workflows, Conductor, OpenCode, GitHub, and local gates.
+
+## Quickstart
+
+```bash
+git clone https://github.com/caldeto/startup-operating-brain-template.git my-startup-brain
+cd my-startup-brain
+python3 scripts/bootstrap.py --startup "Acme AI" --founder "Jane Doe" --primary-repo "acme/app" --data-repo "acme/data-pipeline" --cloud "GCP"
+python3 scripts/validate_frontmatter.py
 ```
 
-## Reglas Principales
+Open the generated `startup-brain-vault/` folder as an Obsidian vault.
 
-1. Obsidian no reemplaza GitHub ni GCP.
-2. Ninguna afirmacion tecnica critica se marca como verdad sin evidencia.
-3. Todo input nuevo entra por `20-Inbox/` antes de convertirse en decision, PRD, riesgo o roadmap.
-4. Toda nota importante debe tener `type`, `status`, `area`, `owner`, `risk`, `confidence` y `last_verified` cuando aplique.
-5. Todo output de IA entra como `ai-output` y `review_status: unreviewed`.
-6. Las decisiones se registran en `15-Decisions-ADR/`.
-7. Los riesgos se registran en `06-Security/` o en el area afectada, pero deben aparecer en los indices.
-8. El estado de produccion debe ser verificado con evidencia real.
-
-## Estados Permitidos
+## Core Model
 
 ```text
-captured
-triage
-exploring
-planned
-in-progress
-implemented-ungated
-implemented-gated
-production
-blocked
-stale
-rejected
-archived
+GitHub = technical truth
+Cloud/runtime = production truth
+Operating Brain = context and decision truth
+AI agents = helpers, not source of truth
 ```
 
-## Tipos De Nota Permitidos
+AI output is never verified truth by default. Technical or production claims need evidence from repositories, tests, runtime systems, or reviewed decisions.
 
-```text
-system-component
-production-status
-prd
-roadmap
-decision
-risk
-reference
-competitor
-idea
-experiment
-metric
-customer-insight
-security-finding
-architecture-model
-agent-behavior
-business-hypothesis
-ai-output
-meeting
-external-repo
-agent-run
+## Main Paths
+
+- `template/`: reusable Obsidian vault template.
+- `docs/`: installation and workflow documentation.
+- `examples/bibound/`: sanitized curated examples from the original BiBound operating brain.
+- `scripts/`: bootstrap and validation scripts.
+- `.github/`: issue templates, PR template, and optional validation workflow.
+
+## Local Gates
+
+```bash
+python3 scripts/validate_frontmatter.py
+python3 scripts/validate_canvas_json.py
+python3 scripts/check_required_links.py
+python3 scripts/check_no_secrets.py
+python3 scripts/check_large_files.py
 ```
 
-## Entradas Principales
+GitHub Actions are optional. Local gates are the primary quality contract.
 
-- [[00-Home/BiBound Operating Brain]]
-- [[01-Company/Vault Constitution]]
-- [[00-Home/Operating Principles]]
-- [[03-Product/PRD - Operating Brain 10-10 Execution]]
-- [[91-Agent-Instructions/GLOBAL_AGENT_RULES]]
-- [[91-Agent-Instructions/AGENT_START_HERE]]
-- [[96-Context-Packs/Context Packs Index]]
-- [[97-Registries/Registries Index]]
-- [[05-Production/Production Status]]
-- [[06-Security/Security Index]]
-- [[09-Pipeline/Pipeline Index]]
-- [[10-Monorepo/Monorepo Index]]
-- [[15-Decisions-ADR/Decision Index]]
-- [[20-Inbox/Inbox Index]]
+## Documentation
+
+Start with:
+
+- [Installation](docs/installation.md)
+- [Quickstart](docs/quickstart.md)
+- [Founder Workflow](docs/founder-workflow.md)
+- [Agent Workflow](docs/agent-workflow.md)
+- [Security Model](docs/security-model.md)
+
+## Project Status
+
+This repository is a template conversion of a real operating brain. The `template/` directory is generic. The BiBound material is retained only as sanitized examples.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Keep changes small, run local validators, and avoid adding startup-specific secrets or private paths.

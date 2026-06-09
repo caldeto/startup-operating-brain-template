@@ -8,15 +8,25 @@ import sys
 from pathlib import Path
 
 
-SKIP_DIRS = {".git", ".obsidian", ".trash"}
+DEFAULT_ROOTS = (Path("template"), Path("examples/bibound"))
+SKIP_DIRS = {".git", ".obsidian", ".trash", "archive"}
 WIKILINK_RE = re.compile(r"!\[\[([^\]]+)\]\]|\[\[([^\]]+)\]\]")
 
 
-def iter_markdown_files(root: Path):
-    for path in sorted(root.rglob("*.md")):
-        if any(part in SKIP_DIRS for part in path.parts):
+def parse_roots(argv: list[str]) -> list[Path]:
+    if argv:
+        return [Path(arg) for arg in argv]
+    return list(DEFAULT_ROOTS)
+
+
+def iter_markdown_files(roots: list[Path]):
+    for root in roots:
+        if not root.exists():
             continue
-        yield path
+        for path in sorted(root.rglob("*.md")):
+            if any(part in SKIP_DIRS for part in path.parts):
+                continue
+            yield path
 
 
 def parse_frontmatter(path: Path):
@@ -42,23 +52,26 @@ def parse_frontmatter(path: Path):
     return fields
 
 
-def build_note_index(root: Path):
+def build_note_index(roots: list[Path]):
     by_stem: dict[str, list[Path]] = {}
     by_path: set[str] = set()
 
-    for path in iter_markdown_files(root):
-        rel = path.relative_to(root)
+    for path in iter_markdown_files(roots):
+        rel = path
         by_path.add(rel.with_suffix("").as_posix())
         by_path.add(rel.as_posix())
         by_stem.setdefault(path.stem, []).append(rel)
 
-    for path in sorted(root.rglob("*.canvas")):
-        if any(part in SKIP_DIRS for part in path.parts):
+    for root in roots:
+        if not root.exists():
             continue
-        rel = path.relative_to(root)
-        by_path.add(rel.with_suffix("").as_posix())
-        by_path.add(rel.as_posix())
-        by_stem.setdefault(path.stem, []).append(rel)
+        for path in sorted(root.rglob("*.canvas")):
+            if any(part in SKIP_DIRS for part in path.parts):
+                continue
+            rel = path
+            by_path.add(rel.with_suffix("").as_posix())
+            by_path.add(rel.as_posix())
+            by_stem.setdefault(path.stem, []).append(rel)
 
     return by_stem, by_path
 
@@ -75,12 +88,12 @@ def link_target_exists(target: str, by_stem: dict[str, list[Path]], by_path: set
 
 
 def main() -> int:
-    root = Path(".")
+    roots = parse_roots(sys.argv[1:])
     errors: list[str] = []
     warnings: list[str] = []
-    by_stem, by_path = build_note_index(root)
+    by_stem, by_path = build_note_index(roots)
 
-    for path in iter_markdown_files(root):
+    for path in iter_markdown_files(roots):
         text = path.read_text(encoding="utf-8")
         fields = parse_frontmatter(path)
 

@@ -8,14 +8,24 @@ from pathlib import Path
 
 
 REQUIRED_KEYS = {"type", "status", "area", "owner", "layer"}
-SKIP_DIRS = {".git", ".obsidian", ".trash"}
+DEFAULT_ROOTS = (Path("template"), Path("examples/bibound"))
+SKIP_DIRS = {".git", ".obsidian", ".trash", "archive"}
 
 
-def iter_markdown_files(root: Path):
-    for path in sorted(root.rglob("*.md")):
-        if any(part in SKIP_DIRS for part in path.parts):
+def iter_markdown_files(roots: list[Path]):
+    for root in roots:
+        if not root.exists():
             continue
-        yield path
+        for path in sorted(root.rglob("*.md")):
+            if any(part in SKIP_DIRS for part in path.parts):
+                continue
+            yield path
+
+
+def parse_roots(argv: list[str]) -> list[Path]:
+    if argv:
+        return [Path(arg) for arg in argv]
+    return list(DEFAULT_ROOTS)
 
 
 def parse_frontmatter(path: Path):
@@ -47,10 +57,12 @@ def parse_frontmatter(path: Path):
 
 
 def main() -> int:
-    root = Path(".")
+    roots = parse_roots(sys.argv[1:])
     errors: list[str] = []
 
-    for path in iter_markdown_files(root):
+    for path in iter_markdown_files(roots):
+        if any(part in SKIP_DIRS for part in path.parts):
+            continue
         fields, error = parse_frontmatter(path)
         if error:
             errors.append(f"{path}: {error}")

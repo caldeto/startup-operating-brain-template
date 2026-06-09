@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {"id":"home","type":"file","file":"00-Home/Startup Operating Brain.md","x":0,"y":0,"width":360,"height":160},
+    {"id":"pipeline","type":"file","file":"09-Data-Pipeline/Data Pipeline Index.md","x":-520,"y":220,"width":360,"height":160},
+    {"id":"monorepo","type":"file","file":"10-App-Monorepo/App Monorepo Index.md","x":0,"y":220,"width":360,"height":160},
+    {"id":"{{CLOUD_PROVIDER_LOWER}}","type":"file","file":"11-Cloud-Infra/Cloud Infra Index.md","x":520,"y":220,"width":360,"height":160},
+    {"id":"security","type":"file","file":"06-Security/Security Index.md","x":-260,"y":480,"width":360,"height":160},
+    {"id":"agents","type":"file","file":"07-Agents-AI/Agent Runtime Index.md","x":260,"y":480,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"home","toNode":"pipeline","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"home","toNode":"monorepo","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"home","toNode":"{{CLOUD_PROVIDER_LOWER}}","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"monorepo","toNode":"agents","fromSide":"bottom","toSide":"top"},
+    {"id":"e5","fromNode":"monorepo","toNode":"security","fromSide":"bottom","toSide":"top"},
+    {"id":"e6","fromNode":"pipeline","toNode":"monorepo","fromSide":"right","toSide":"left"},
+    {"id":"e7","fromNode":"{{CLOUD_PROVIDER_LOWER}}","toNode":"security","fromSide":"bottom","toSide":"right"}
+  ]
+}
+

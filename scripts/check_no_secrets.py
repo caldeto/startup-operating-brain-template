@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 
-SKIP_DIRS = {".git", ".trash"}
+SKIP_DIRS = {".git", ".trash", ".context"}
 SKIP_FILES = {".obsidian/workspace.json", ".obsidian/workspace-mobile.json"}
 MAX_TEXT_BYTES = 1024 * 1024
 

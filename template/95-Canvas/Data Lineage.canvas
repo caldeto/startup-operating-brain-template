@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {"id":"pipeline","type":"file","file":"09-Data-Pipeline/Data Pipeline Index.md","x":-520,"y":0,"width":360,"height":160},
+    {"id":"monorepo","type":"file","file":"10-App-Monorepo/App Monorepo Index.md","x":0,"y":0,"width":360,"height":160},
+    {"id":"ledger","type":"file","file":"17-Metrics/Measurement Ledger.md","x":520,"y":0,"width":360,"height":160},
+    {"id":"memory","type":"file","file":"08-Memory-Embeddings/Memory Embeddings Index.md","x":-260,"y":260,"width":360,"height":160},
+    {"id":"actions","type":"file","file":"07-Agents-AI/Copilot Action Policy.md","x":260,"y":260,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"pipeline","toNode":"monorepo","fromSide":"right","toSide":"left"},
+    {"id":"e2","fromNode":"monorepo","toNode":"ledger","fromSide":"right","toSide":"left"},
+    {"id":"e3","fromNode":"monorepo","toNode":"memory","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"memory","toNode":"actions","fromSide":"right","toSide":"left"},
+    {"id":"e5","fromNode":"actions","toNode":"ledger","fromSide":"top","toSide":"bottom"}
+  ]
+}
+

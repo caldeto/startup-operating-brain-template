@@ -10,7 +10,7 @@ from pathlib import Path
 
 MAX_FILE_MB = int(os.environ.get("MAX_FILE_MB", "10"))
 MAX_BYTES = MAX_FILE_MB * 1024 * 1024
-SKIP_DIRS = {".git", ".trash"}
+SKIP_DIRS = {".git", ".trash", ".context"}
 
 
 def main() -> int:

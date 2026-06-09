@@ -8,21 +8,32 @@ import sys
 from pathlib import Path
 
 
-SKIP_DIRS = {".git", ".trash"}
+DEFAULT_ROOTS = (Path("template"), Path("examples/bibound"))
+SKIP_DIRS = {".git", ".trash", "archive"}
+
+
+def parse_roots(argv: list[str]) -> list[Path]:
+    if argv:
+        return [Path(arg) for arg in argv]
+    return list(DEFAULT_ROOTS)
 
 
 def main() -> int:
+    roots = parse_roots(sys.argv[1:])
     errors: list[str] = []
 
-    for path in sorted(Path(".").rglob("*.canvas")):
-        if any(part in SKIP_DIRS for part in path.parts):
+    for root in roots:
+        if not root.exists():
             continue
-        try:
-            json.loads(path.read_text(encoding="utf-8"))
-        except UnicodeDecodeError as exc:
-            errors.append(f"{path}: cannot read as UTF-8: {exc}")
-        except json.JSONDecodeError as exc:
-            errors.append(f"{path}: invalid JSON at line {exc.lineno}, column {exc.colno}: {exc.msg}")
+        for path in sorted(root.rglob("*.canvas")):
+            if any(part in SKIP_DIRS for part in path.parts):
+                continue
+            try:
+                json.loads(path.read_text(encoding="utf-8"))
+            except UnicodeDecodeError as exc:
+                errors.append(f"{path}: cannot read as UTF-8: {exc}")
+            except json.JSONDecodeError as exc:
+                errors.append(f"{path}: invalid JSON at line {exc.lineno}, column {exc.colno}: {exc.msg}")
 
     if errors:
         print("Canvas JSON validation failed:")

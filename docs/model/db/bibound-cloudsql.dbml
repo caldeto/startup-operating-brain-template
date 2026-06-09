@@ -1,0 +1,109 @@
+// BiBound Cloud SQL conceptual model.
+// Source: monorepo and pipeline development branches verified 2026-06-09.
+
+Project bibound_cloudsql {
+  database_type: "PostgreSQL 16 + pgvector"
+  Note: "Conceptual only. DDL truth lives in repo migrations."
+}
+
+Table tenants {
+  id uuid [pk]
+  slug text [not null, unique]
+  name text
+}
+
+Table orders {
+  tenant_id uuid [not null]
+  external_id text [not null]
+  customer_email text
+  customer_phone text
+  ordered_at timestamptz [not null]
+  payment_status text [not null]
+  fulfillment_status text
+  subtotal numeric
+  total numeric
+  shipping jsonb
+  indexes {
+    (tenant_id, external_id) [pk]
+  }
+}
+
+Table order_items {
+  tenant_id uuid [not null]
+  order_external_id text [not null]
+  line_number int
+  sku text
+  product_id text
+  product_name text
+  quantity numeric
+  unit_price numeric
+  attributes jsonb
+  indexes {
+    (tenant_id, order_external_id, line_number) [pk]
+  }
+}
+
+Table customer_features {
+  tenant_id uuid [not null]
+  identity_cluster_id text [not null]
+  snapshot_date date [not null]
+  primary_email text
+  rfm_segment text
+  predicted_clv_12m numeric
+  m_score_net numeric
+  clv_percentile_net numeric
+  indexes {
+    (tenant_id, identity_cluster_id, snapshot_date) [pk]
+  }
+}
+
+Table identity_clusters {
+  id uuid [pk]
+  tenant_id uuid [not null]
+}
+
+Table identity_events {
+  tenant_id uuid [not null]
+  event_id bigint [not null]
+  event_type text [not null]
+  email text [not null]
+  cluster_id uuid
+  occurred_at timestamptz [not null]
+  indexes {
+    (tenant_id, event_id) [pk]
+  }
+}
+
+Table ingest_reports {
+  id bigint [pk]
+  tenant_id uuid [not null]
+  status text [not null]
+  raw_artifact_uri text
+  report jsonb
+  started_at timestamptz
+  finished_at timestamptz
+}
+
+Table agent_chat_threads {
+  id uuid [pk]
+  tenant_id uuid [not null]
+  user_id uuid
+  is_ephemeral boolean
+}
+
+Table semantic_memory {
+  id uuid [pk]
+  tenant_id uuid [not null]
+  content text [not null]
+  embedding vector
+}
+
+Ref: orders.tenant_id > tenants.id
+Ref: order_items.(tenant_id, order_external_id) > orders.(tenant_id, external_id)
+Ref: customer_features.tenant_id > tenants.id
+Ref: identity_clusters.tenant_id > tenants.id
+Ref: identity_events.tenant_id > tenants.id
+Ref: ingest_reports.tenant_id > tenants.id
+Ref: agent_chat_threads.tenant_id > tenants.id
+Ref: semantic_memory.tenant_id > tenants.id
+

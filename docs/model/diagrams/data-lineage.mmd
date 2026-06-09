@@ -1,0 +1,18 @@
+flowchart TD
+  XLSX[XLSX exports] --> Raw[GCS raw artifact]
+  Raw --> Bronze[Raw imports]
+  Bronze --> Silver[Canonical orders/order_items]
+  Silver --> Identity[Identity clusters/events]
+  Silver --> Revenue[order_revenue_facts]
+  Identity --> Features[customer_features]
+  Revenue --> Features
+  Features --> Scoped[Scoped contract views]
+  Scoped --> Monorepo[Monorepo analytics/agent/backend]
+  Features --> Outbox[measurement_outbox]
+  Outbox --> BigQuery[BigQuery measurement ledger]
+  Features --> DQ[Data quality checks]
+  DQ --> Review[data_quality_findings]
+  Review --> BigQuery
+  Monorepo --> Actions[Copilot/actions/outcomes planned]
+  Actions -.future producer.-> BigQuery
+

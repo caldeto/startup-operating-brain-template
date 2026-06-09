@@ -38,7 +38,8 @@ Este directorio es el modelo tecnico principal del Operating Brain. No reemplaza
 4. `diagrams/` - vista visual versionable.
 5. `contracts/pipeline-consumer-v3.md` - contrato real pipeline-monorepo.
 6. `security/` - threat model, IAM y readiness.
-7. `db/` - modelo conceptual Cloud SQL y contrato pipeline.
+7. `testing/local-quality-gates.md` - regla canonica de pruebas locales.
+8. `db/` - modelo conceptual Cloud SQL y contrato pipeline.
 
 ## Reglas De Verdad
 
@@ -50,6 +51,7 @@ Este directorio es el modelo tecnico principal del Operating Brain. No reemplaza
 | Que esta en produccion | GCP runtime, deploys, logs, smoke tests |
 | Que decision esta aceptada | ADRs y PRs mergeados |
 | Que sabe el brain | Esta documentacion mas Evidence Registry |
+| Que valida calidad | Gates locales robustos y documentados, no GitHub Actions |
 
 ## Hallazgos Principales
 
@@ -57,3 +59,4 @@ Este directorio es el modelo tecnico principal del Operating Brain. No reemplaza
 - El monorepo cerro riesgos importantes el 2026-06-09 UTC: CI local, ADC wrap, SQL sandbox tests, SSE timeout, BYOK endpoint safety y rate limiter hardening.
 - La integracion cross-repo esta cerca pero no terminada: contrato v3 existe, gate existe, falta operar el cutover final de GUC y consumos netos.
 - GCP esta modelado y parcialmente materializado, pero produccion end-to-end aun requiere dominio, observabilidad, alerts, backups, rollback y smoke tests.
+- GitHub Actions no se usa como gate de calidad; los cambios deben probarse localmente en todos los frentes relevantes y registrar correlaciones.

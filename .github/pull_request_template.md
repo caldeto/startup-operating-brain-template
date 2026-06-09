@@ -29,6 +29,10 @@ Describe las areas del vault afectadas.
 
 Lista fuentes, commits, PRs, registros, o entradas del Evidence Registry / Source of Truth Map.
 
+## Validacion local
+
+Lista comandos locales ejecutados y resultado. GitHub Actions no es gate canonico de calidad para este repo.
+
 ## Agent Run
 
 - [ ] Se creo Agent Run cuando correspondia
@@ -41,3 +45,4 @@ Lista fuentes, commits, PRs, registros, o entradas del Evidence Registry / Sourc
 - [ ] No se mezclo output IA con verdad verificada.
 - [ ] Canvas siguen validos.
 - [ ] Notas nuevas usan template/schema.
+- [ ] Se ejecutaron validaciones locales relevantes.

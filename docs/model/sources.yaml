@@ -38,7 +38,8 @@ source_policy:
   branch_truth: "origin/development is the base truth for analysis."
   production_truth: "GCP runtime evidence is required before status: production."
   legacy_policy: "BuyerKind legacy documents are historical reference only, not current technical truth."
-  ci_policy: "GitHub Actions failures caused by billing/runner unavailability are not quality signal; use local checks documented by each repo."
+  ci_policy: "GitHub Actions are not the canonical quality gate. Use robust local gates documented by each repo and record commands/results in Agent Runs or PRs."
+  correlation_policy: "When updating technical state, test relationships locally: monorepo-pipeline contract, schema drift, tenant/RLS/GUC, security gates, data lineage, and runtime assumptions."
 
 evidence_format:
   evidence_id: "repo-shortsha-path"

@@ -34,7 +34,9 @@ Reglas:
 6. Revisa que cada diagrama represente un flujo real, no aspiracional.
 7. Distingue implemented, implemented-gated, planned, risk y production-blocker.
 8. Reporta divergencias con path, commit y motivo.
-9. Si propones cambios, crea Agent Run.
+9. GitHub Actions no es gate canonico; verifica y reporta comandos locales robustos.
+10. Revisa correlaciones: contrato pipeline-monorepo, schema drift, GUC/RLS, ledger, LLM roles, seguridad de agentes y produccion GCP.
+11. Si propones cambios, crea Agent Run.
 
 Entrega:
 - resumen ejecutivo;
@@ -42,5 +44,5 @@ Entrega:
 - archivos a actualizar;
 - riesgos;
 - validaciones locales.
+- correlaciones probadas.
 ```
-

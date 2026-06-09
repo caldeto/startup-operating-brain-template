@@ -38,10 +38,9 @@ BiBound is not yet production-certified by the Operating Brain. The code and inf
 | Rollback | platform | high | not verified | rollback runbook and tested command |
 | Smoke tests | engineering | high | local checks exist | prod/staging smoke suite |
 | Branch protection | operations | medium | blocked by GitHub plan | Pro/public or alternate governance |
-| Remote CI | operations | high | blocked by runner/billing | Actions execution or self-hosted runner |
+| Local quality gates | operations | high | canonical validation path | recorded local checks and cross-repo correlation tests |
 | GUC cutover | engineering/data | high | dual-write active | current-tenant-only test |
 
 ## Readiness Decision
 
 Use `implemented-gated` for code/infra delivered in `development`. Use `production` only after GCP runtime evidence exists.
-

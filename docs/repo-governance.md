@@ -5,7 +5,7 @@ area: operations
 owner: librarian-agent
 layer: operation
 created_at: 2026-06-08
-last_verified: 2026-06-08
+last_verified: 2026-06-09
 confidence: high
 decision_critical: true
 links:
@@ -21,7 +21,7 @@ links:
 
 Este repositorio versiona el vault Obsidian `BiBound Operating Brain`.
 
-GitHub mantiene historial, revision, PRs y CI. Obsidian mantiene escritura humana, navegacion visual, Canvas y grafo. El monorepo BiBound y el pipeline siguen siendo fuentes de verdad tecnica ejecutable; este vault registra contexto, decisiones, evidencia, estrategia, negocio, seguridad, produccion y referencias.
+GitHub mantiene historial, ramas, PRs y revision. Obsidian mantiene escritura humana, navegacion visual, Canvas y grafo. El monorepo BiBound y el pipeline siguen siendo fuentes de verdad tecnica ejecutable; este vault registra contexto, decisiones, evidencia, estrategia, negocio, seguridad, produccion y referencias.
 
 ## Branches
 
@@ -66,6 +66,24 @@ La conexion inicial con monorepo y pipeline es documental, no automatica.
 
 No usar submodulos ni sync automatico agresivo hasta que exista una decision revisada.
 
+## Validacion Local
+
+GitHub Actions no es el gate canonico de calidad para este vault ni para la coordinacion con monorepo/pipeline. La validacion aceptada es local, explicita y reproducible.
+
+Para cambios del Operating Brain, ejecutar los scripts locales del vault:
+
+```bash
+python3 scripts/validate_frontmatter.py
+python3 scripts/validate_canvas_json.py
+python3 scripts/check_large_files.py
+python3 scripts/check_required_links.py
+python3 scripts/check_no_secrets.py
+```
+
+Para cambios que actualizan estado tecnico del monorepo o pipeline, registrar tambien las verificaciones locales del repo fuente: `make ci`, tests de contrato, tests de seguridad, checks de schema, y cualquier prueba de correlacion entre repos que aplique. El PR o Agent Run debe decir que se probo y contra que SHA.
+
+GitHub Actions puede existir como `workflow_dispatch` manual, pero un check remoto rojo por falta de runner/billing no invalida un cambio si los gates locales robustos pasaron y estan documentados.
+
 ## GitHub Vs Obsidian
 
 GitHub contiene:
@@ -74,7 +92,7 @@ GitHub contiene:
 - ramas;
 - PRs;
 - revision;
-- CI;
+- resultados de revision y, si se dispara manualmente, workflow auxiliar;
 - protecciones.
 
 Obsidian contiene:
@@ -97,4 +115,4 @@ Antes de mergear:
 2. Revisar que las notas nuevas sigan `97-Registries/Schema Registry`.
 3. Confirmar que Canvas JSON sigue valido.
 4. Confirmar que no hay secretos ni archivos enormes.
-5. Confirmar que el CI `Validate Vault` pasa.
+5. Confirmar que las validaciones locales relevantes pasan.

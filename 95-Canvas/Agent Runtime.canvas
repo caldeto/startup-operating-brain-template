@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    {"id":"agent","type":"file","file":"07-Agents-AI/Agent Runtime Index.md","x":0,"y":0,"width":360,"height":160},
+    {"id":"policy","type":"file","file":"07-Agents-AI/Copilot Action Policy.md","x":-420,"y":240,"width":360,"height":160},
+    {"id":"memory","type":"file","file":"08-Memory-Embeddings/Memory Embeddings Index.md","x":0,"y":240,"width":360,"height":160},
+    {"id":"ledger","type":"file","file":"17-Metrics/Measurement Ledger.md","x":420,"y":240,"width":360,"height":160},
+    {"id":"security","type":"file","file":"06-Security/Prompt Injection and Tool Abuse.md","x":-220,"y":500,"width":360,"height":160},
+    {"id":"cost","type":"file","file":"17-Metrics/Cost Logging by Tenant Model Tool.md","x":220,"y":500,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"agent","toNode":"policy","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"agent","toNode":"memory","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"agent","toNode":"ledger","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"policy","toNode":"security","fromSide":"bottom","toSide":"top"},
+    {"id":"e5","fromNode":"ledger","toNode":"cost","fromSide":"bottom","toSide":"top"}
+  ]
+}
+

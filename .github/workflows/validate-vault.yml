@@ -1,0 +1,38 @@
+name: Validate Vault
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - development
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate Vault
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validate markdown front matter
+        run: python3 scripts/validate_frontmatter.py
+
+      - name: Validate Canvas JSON
+        run: python3 scripts/validate_canvas_json.py
+
+      - name: Check large files
+        run: python3 scripts/check_large_files.py
+
+      - name: Check required evidence links
+        run: python3 scripts/check_required_links.py
+
+      - name: Check for likely secrets
+        run: python3 scripts/check_no_secrets.py

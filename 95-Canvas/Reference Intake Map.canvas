@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {"id":"inbox","type":"file","file":"20-Inbox/Inbox Index.md","x":0,"y":0,"width":360,"height":160},
+    {"id":"refs","type":"file","file":"14-References/Reference Index.md","x":-420,"y":240,"width":360,"height":160},
+    {"id":"ideas","type":"file","file":"02-Strategy/CEO Idea Pipeline.md","x":0,"y":240,"width":360,"height":160},
+    {"id":"decisions","type":"file","file":"15-Decisions-ADR/Decision Index.md","x":420,"y":240,"width":360,"height":160},
+    {"id":"experiments","type":"file","file":"16-Experiments/Experiment Index.md","x":0,"y":500,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"inbox","toNode":"refs","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"inbox","toNode":"ideas","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"ideas","toNode":"experiments","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"refs","toNode":"decisions","fromSide":"right","toSide":"left"},
+    {"id":"e5","fromNode":"experiments","toNode":"decisions","fromSide":"right","toSide":"bottom"}
+  ]
+}
+

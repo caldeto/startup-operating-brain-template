@@ -1,0 +1,14 @@
+{
+  "nodes": [
+    {"id":"market","type":"file","file":"12-Market-Research/Market Research Index.md","x":-260,"y":0,"width":360,"height":160},
+    {"id":"competitors","type":"file","file":"13-Competitors/Competitor Index.md","x":260,"y":0,"width":360,"height":160},
+    {"id":"refs","type":"file","file":"14-References/Reference Index.md","x":0,"y":260,"width":360,"height":160},
+    {"id":"strategy","type":"file","file":"02-Strategy/Strategy Index.md","x":0,"y":520,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"market","toNode":"refs","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"competitors","toNode":"refs","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"refs","toNode":"strategy","fromSide":"bottom","toSide":"top"}
+  ]
+}
+

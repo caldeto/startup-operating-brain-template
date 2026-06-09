@@ -1,0 +1,16 @@
+flowchart TD
+  Upload[XLSX upload / GCS URI] --> Ingest[POST /ingest sync]
+  Ingest --> Guardrails[SSRF guard / MAX_INGEST_BYTES / dedup lock]
+  Guardrails --> Raw[GCS raw artifact audit]
+  Guardrails --> Normalize[Readers + cleanup + canonical model]
+  Normalize --> Identity[Identity resolution]
+  Identity --> Features[RFM / BTYD / CLV / customer_features]
+  Features --> Freshness[Freshness]
+  Features --> LedgerOutbox[measurement_outbox]
+  LedgerOutbox --> Exporter[Exporter Cloud Run Job]
+  Exporter --> BigQuery[(BigQuery measurement)]
+  Features --> DataQuality[Data quality detector]
+  DataQuality --> Triage[LLM triage + review queue]
+  Triage --> WAP[Write-Audit-Publish circuit breaker]
+  WAP --> BigQuery
+

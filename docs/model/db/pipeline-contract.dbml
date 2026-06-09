@@ -1,0 +1,84 @@
+// Pipeline public contract conceptual DBML.
+// DDL truth: pipeline db/migrations/*.sql and SCHEMA.md.
+
+Project pipeline_contract {
+  database_type: "PostgreSQL 16"
+  Note: "Public consumed surface. Internal pipeline objects intentionally omitted."
+}
+
+Table orders {
+  tenant_id uuid [not null]
+  external_id text [not null]
+  customer_email text
+  ordered_at timestamptz [not null]
+  payment_status payment_status_enum [not null]
+  fulfillment_status fulfillment_status_enum
+  subtotal numeric
+  total numeric
+  indexes {
+    (tenant_id, external_id) [pk]
+  }
+}
+
+Table order_items {
+  tenant_id uuid [not null]
+  order_external_id text [not null]
+  line_number int [not null]
+  sku text
+  product_name text
+  quantity numeric
+  unit_price numeric
+  indexes {
+    (tenant_id, order_external_id, line_number) [pk]
+  }
+}
+
+Table customer_features {
+  tenant_id uuid [not null]
+  identity_cluster_id text [not null]
+  snapshot_date date [not null]
+  rfm_segment text
+  m_score_net numeric
+  clv_percentile_net numeric
+  indexes {
+    (tenant_id, identity_cluster_id, snapshot_date) [pk]
+  }
+}
+
+Table order_revenue_facts {
+  tenant_id uuid [not null]
+  order_external_id text [not null]
+  fact_type text [not null]
+  amount numeric [not null]
+}
+
+Table data_quality_findings {
+  id bigint [pk]
+  tenant_id uuid [not null]
+  check_id text [not null]
+  status text [not null]
+  llm_verdict jsonb
+}
+
+Enum payment_status_enum {
+  paid
+  partial_paid
+  pending
+  authorized
+  failed
+  abandoned
+  cancelled
+  voided
+  refunded
+  partial_refund
+}
+
+Enum fulfillment_status_enum {
+  delivered
+  in_transit
+  pending
+  not_tracked
+  cancelled
+  failed
+}
+

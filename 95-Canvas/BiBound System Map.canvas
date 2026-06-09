@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {"id":"home","type":"file","file":"00-Home/BiBound Operating Brain.md","x":0,"y":0,"width":360,"height":160},
+    {"id":"pipeline","type":"file","file":"09-Pipeline/Pipeline Index.md","x":-520,"y":220,"width":360,"height":160},
+    {"id":"monorepo","type":"file","file":"10-Monorepo/Monorepo Index.md","x":0,"y":220,"width":360,"height":160},
+    {"id":"gcp","type":"file","file":"11-GCP-Infra/GCP Infra Index.md","x":520,"y":220,"width":360,"height":160},
+    {"id":"security","type":"file","file":"06-Security/Security Index.md","x":-260,"y":480,"width":360,"height":160},
+    {"id":"agents","type":"file","file":"07-Agents-AI/Agent Runtime Index.md","x":260,"y":480,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"home","toNode":"pipeline","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"home","toNode":"monorepo","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"home","toNode":"gcp","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"monorepo","toNode":"agents","fromSide":"bottom","toSide":"top"},
+    {"id":"e5","fromNode":"monorepo","toNode":"security","fromSide":"bottom","toSide":"top"},
+    {"id":"e6","fromNode":"pipeline","toNode":"monorepo","fromSide":"right","toSide":"left"},
+    {"id":"e7","fromNode":"gcp","toNode":"security","fromSide":"bottom","toSide":"right"}
+  ]
+}
+

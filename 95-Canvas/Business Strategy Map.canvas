@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    {"id":"strategy","type":"file","file":"02-Strategy/Strategy Index.md","x":0,"y":0,"width":360,"height":160},
+    {"id":"vision","type":"file","file":"02-Strategy/Vision.md","x":-520,"y":220,"width":360,"height":160},
+    {"id":"icp","type":"file","file":"02-Strategy/ICP.md","x":-120,"y":220,"width":360,"height":160},
+    {"id":"wedge","type":"file","file":"02-Strategy/Product Wedge.md","x":280,"y":220,"width":360,"height":160},
+    {"id":"gtm","type":"file","file":"02-Strategy/GTM.md","x":-260,"y":480,"width":360,"height":160},
+    {"id":"metrics","type":"file","file":"17-Metrics/North Star Metric.md","x":260,"y":480,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"strategy","toNode":"vision","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"strategy","toNode":"icp","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"strategy","toNode":"wedge","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"icp","toNode":"gtm","fromSide":"bottom","toSide":"top"},
+    {"id":"e5","fromNode":"wedge","toNode":"metrics","fromSide":"bottom","toSide":"top"}
+  ]
+}
+

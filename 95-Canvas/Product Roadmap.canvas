@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    {"id":"product","type":"file","file":"03-Product/Product Index.md","x":0,"y":0,"width":360,"height":160},
+    {"id":"experiments","type":"file","file":"16-Experiments/Experiment Index.md","x":-420,"y":240,"width":360,"height":160},
+    {"id":"policy","type":"file","file":"07-Agents-AI/Copilot Action Policy.md","x":0,"y":240,"width":360,"height":160},
+    {"id":"metrics","type":"file","file":"17-Metrics/North Star Metric.md","x":420,"y":240,"width":360,"height":160},
+    {"id":"production","type":"file","file":"05-Production/Production Readiness Checklist.md","x":0,"y":500,"width":420,"height":180}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"product","toNode":"experiments","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"product","toNode":"policy","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"product","toNode":"metrics","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"policy","toNode":"production","fromSide":"bottom","toSide":"top"}
+  ]
+}
+

@@ -1,0 +1,14 @@
+flowchart LR
+  GH[GitHub Actions / local CI] --> WIF[Workload Identity Federation]
+  WIF --> Build[Cloud Build]
+  Build --> AR[Artifact Registry]
+  AR --> CR[Cloud Run Services]
+  CR --> SQL[(Cloud SQL PG16)]
+  CR --> SM[Secret Manager]
+  PipelineJob[Cloud Run Jobs] --> SQL
+  PipelineJob --> BQ[(BigQuery measurement)]
+  Scheduler[Cloud Scheduler] --> PipelineJob
+  CR --> GCS[(GCS uploads/raw)]
+  Logs[Cloud Logging/Monitoring] --- CR
+  Logs --- PipelineJob
+

@@ -1,0 +1,42 @@
+flowchart TB
+  subgraph Public
+    Browser[Browser]
+  end
+  subgraph Monorepo
+    Frontend[Frontend]
+    Backend[Backend]
+    Agent[Agent SQL Sandbox]
+    Analytics[Analytics]
+  end
+  subgraph Pipeline
+    Ingest[Pipeline API]
+    DQ[Data Quality Job]
+    Exporter[Measurement Exporter]
+  end
+  subgraph Data
+    SQL[(Cloud SQL RLS)]
+    GCS[(GCS Raw)]
+    BQ[(BigQuery Ledger)]
+  end
+  subgraph Control
+    SM[Secret Manager]
+    IAM[IAM / WIF]
+    Vertex[Vertex AI]
+  end
+  Browser --> Frontend
+  Frontend --> Backend
+  Backend --> SQL
+  Agent --> SQL
+  Analytics --> SQL
+  Backend --> Ingest
+  Ingest --> SQL
+  Ingest --> GCS
+  DQ --> SQL
+  DQ --> Vertex
+  Exporter --> SQL
+  Exporter --> BQ
+  SM --> Backend
+  SM --> Ingest
+  IAM --> Backend
+  IAM --> Ingest
+

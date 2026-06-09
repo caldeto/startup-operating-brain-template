@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    {"id":"memory","type":"file","file":"08-Memory-Embeddings/Memory Embeddings Index.md","x":0,"y":0,"width":380,"height":170},
+    {"id":"security","type":"file","file":"06-Security/Data Classification.md","x":-420,"y":260,"width":360,"height":160},
+    {"id":"tenant","type":"file","file":"06-Security/Tenant Isolation RLS GUC.md","x":0,"y":260,"width":360,"height":160},
+    {"id":"cost","type":"file","file":"17-Metrics/Cost Logging by Tenant Model Tool.md","x":420,"y":260,"width":360,"height":160},
+    {"id":"agents","type":"file","file":"07-Agents-AI/Agent Runtime Index.md","x":0,"y":520,"width":360,"height":160}
+  ],
+  "edges": [
+    {"id":"e1","fromNode":"memory","toNode":"security","fromSide":"bottom","toSide":"top"},
+    {"id":"e2","fromNode":"memory","toNode":"tenant","fromSide":"bottom","toSide":"top"},
+    {"id":"e3","fromNode":"memory","toNode":"cost","fromSide":"bottom","toSide":"top"},
+    {"id":"e4","fromNode":"tenant","toNode":"agents","fromSide":"bottom","toSide":"top"}
+  ]
+}
+

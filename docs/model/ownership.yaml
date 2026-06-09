@@ -1,0 +1,68 @@
+schema_version: 1
+verified_at: "2026-06-09"
+
+systems:
+  pipeline:
+    repo: "caldeto/ecommerce-data-cleaning-pipeline"
+    source_branch: "development"
+    owns:
+      - "xlsx ingestion"
+      - "raw artifact persistence contract"
+      - "cleanup and normalization"
+      - "identity resolution"
+      - "feature generation"
+      - "freshness"
+      - "pipeline-owned Cloud SQL warehouse tables"
+      - "BigQuery measurement ledger"
+      - "data quality detection and triage"
+      - "pipeline app and migrate DB roles"
+      - "pipeline Cloud Run jobs and schedulers"
+    must_not_own:
+      - "monorepo product UI"
+      - "copilot action policy"
+      - "monorepo read models"
+  monorepo:
+    repo: "caldeto/bibound"
+    source_branch: "development"
+    owns:
+      - "frontend applications"
+      - "backend product API"
+      - "agent SQL and AG-UI runtime"
+      - "analytics/copilot chat"
+      - "orchestrator"
+      - "BK-CM content marketing"
+      - "semantic memory and embeddings"
+      - "pipeline consumer contract"
+      - "app-owned read models"
+      - "copilot suggestions and action policy"
+    must_not_own:
+      - "pipeline warehouse source tables"
+      - "pipeline migrations"
+      - "BigQuery measurement source of truth"
+  gcp:
+    source_of_truth: "Terraform state plus live GCP runtime"
+    owns:
+      - "Cloud Run runtime"
+      - "Cloud SQL Postgres 16"
+      - "BigQuery datasets"
+      - "Secret Manager"
+      - "Artifact Registry"
+      - "Workload Identity Federation"
+      - "service accounts and IAM"
+      - "logs, metrics, alerts and backups"
+  operating_brain:
+    repo: "caldeto/bibound-operating-brain"
+    owns:
+      - "context"
+      - "architecture model"
+      - "evidence registry"
+      - "decision history"
+      - "production gaps"
+      - "security posture"
+      - "agent run audit trail"
+    must_not_own:
+      - "runtime truth"
+      - "technical schema truth"
+      - "secrets"
+      - "source code sync"
+

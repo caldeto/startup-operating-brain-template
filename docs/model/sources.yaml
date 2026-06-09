@@ -1,0 +1,52 @@
+schema_version: 1
+verified_at: "2026-06-09"
+timezone_note: "PR dates use GitHub mergedAt UTC."
+
+repos:
+  monorepo:
+    name: "caldeto/bibound"
+    local_path: "/Users/fran/conductor/repos/bibound"
+    base_branch: "development"
+    remote_development_sha: "0c5c08ca706382e2fa61a8ba5755b8321acb4d41"
+    remote_main_sha: "7a3cd6b6401338adbb26890243617946bf1f4ece"
+    local_checkout_observation: "Local checkout may be stale or on main; always verify with git ls-remote before updating this model."
+    key_documents:
+      - "docs/EXECUTION-STATUS.md"
+      - "docs/pipeline-webhook-contract.md"
+      - "docs/adr/0002-pipeline-consumption-contract-and-read-model.md"
+      - "apps/backend/tests/fixtures/pipeline_schema_contract.yaml"
+      - ".github/workflows/pipeline_contract_test.yml"
+      - "infra/terraform/README.md"
+  pipeline:
+    name: "caldeto/ecommerce-data-cleaning-pipeline"
+    local_path: "/Users/fran/conductor/repos/ecommerce-data-cleaning-pipeline"
+    base_branch: "development"
+    remote_development_sha: "d1b74e599b19945b88103b914b8bca614751a902"
+    remote_main_sha: "548e71058c35c3b112148106d96c9b46ad2345c8"
+    key_documents:
+      - "ROADMAP.md"
+      - "docs/HANDOFF.md"
+      - "docs/KNOWN_ISSUES.md"
+      - "SCHEMA.md"
+      - "MONOREPO_INTEGRATION.md"
+      - "contracts/measurement.v1.yaml"
+      - "contracts/data_quality.checks.v1.yaml"
+      - "docs/adr/0001-cloud-provider-gcp.md"
+      - "docs/adr/0014-llm-role-registry.md"
+
+source_policy:
+  branch_truth: "origin/development is the base truth for analysis."
+  production_truth: "GCP runtime evidence is required before status: production."
+  legacy_policy: "BuyerKind legacy documents are historical reference only, not current technical truth."
+  ci_policy: "GitHub Actions are not the canonical quality gate. Use robust local gates documented by each repo and record commands/results in Agent Runs or PRs."
+  correlation_policy: "When updating technical state, test relationships locally: monorepo-pipeline contract, schema drift, tenant/RLS/GUC, security gates, data lineage, and runtime assumptions."
+
+evidence_format:
+  evidence_id: "repo-shortsha-path"
+  repo: "caldeto/bibound or caldeto/ecommerce-data-cleaning-pipeline"
+  branch: "development"
+  commit: "short_sha"
+  path: "file path"
+  claim: "verifiable technical claim"
+  status: "implemented | implemented-gated | planned | risk | production-blocker"
+  verified_at: "YYYY-MM-DD"
